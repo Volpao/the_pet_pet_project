@@ -31,11 +31,11 @@ def load_image(image_bytes):
         raise Exception()
     img = img.convert('RGB')
     img = img.resize((299,299), Image.NEAREST)
-    img = tf.convert_to_tensor(img, dtype=tf.float32)
-    img = np.expand_dims(img, axis = 0)
-    img = img.copy()
-    img = preprocess_input(img)
-    return img
+    tensor = tf.convert_to_tensor(img, dtype=tf.float32)
+    batch = np.expand_dims(tensor, axis = 0)
+    batch = batch.copy()
+    batch = preprocess_input(batch)
+    return batch
 
 def predict(clf, image):
     probs = clf.predict(image)
