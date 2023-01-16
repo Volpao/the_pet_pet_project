@@ -1,1 +1,2 @@
 # the_pet_pet_project
+"The Pet" Pet App is designed to predict a dog breed based on a picture you load. The model has been trained for 4 classes: Akita inu, Shiba inu, Siberian husky which look alike and all other breeds, as a single class.
