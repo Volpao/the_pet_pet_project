@@ -6,7 +6,8 @@ import numpy as np
 from PIL import Image
 from keras.applications.xception import preprocess_input
 from keras.models import load_model
-
+import io
+import base64
 
 
 supported_extensions = ["jpg", "jpeg", "png"]
@@ -15,18 +16,25 @@ model = load_model('final_model.h5')
 
 
 class Predict(Resource):
+    def get(self):
+        return jsonify({"result": "it's running"})
     def post(self):
-        image_from_request = request.files['image']
+        # image_from_request = request.files['image']
+        message = request.get_json(force=True)
         try:
-            image = self.load_image(image_from_request.stream)
+            image = self.load_image(message)
         except:
             return jsonify({"error": "Your file extension is not supported or too small. Please load a jpeg, jpg or png file."})
 
         result = self.predict(model, image)
         return jsonify({"result": result})
 
-    def load_image(self, image_bytes):
-        img = Image.open(image_bytes)
+    def load_image(self, message):
+        
+        encoded = message['image']
+        decoded = base64.b64decode(encoded)
+        img = Image.open(io.BytesIO(decoded))
+        print(img)
         if img.format.lower() not in supported_extensions:
             raise Exception()
         img = img.convert('RGB')
@@ -41,10 +49,10 @@ class Predict(Resource):
         probs = clf.predict(image)
         cls = np.argmax(probs, axis = 1)
         if cls[0]==0:
-            return 'Akita inu'
+            return 'AKITA INU'
         elif cls[0]==1:
-            return 'Siberian husky'
+            return 'SIBERIAN HUSKY'
         elif cls[0]==2:
-            return 'Other breed'
+            return 'OTHER BREED'
         else:
-            return 'Shiba inu'
+            return 'SHIBA INU'
