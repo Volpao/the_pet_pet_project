@@ -3,6 +3,6 @@ Flask-Cors
 Flask-RESTful
 tensorflow
 numpy
-PIL
+Pillow
 keras
 gunicorn
