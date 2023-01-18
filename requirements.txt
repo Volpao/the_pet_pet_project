@@ -1,0 +1,8 @@
+Flask
+Flask-Cors
+Flask-RESTful
+tensorflow
+numpy
+PIL
+keras
+gunicorn

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+
+    <title>the pet app</title>
+    <style>
+        * {
+            font: size 30px;
+        }
+    </style>
+</head>
+<body style="background-color:#333333;">
+    <br>
+    <input id="image-selector" type="file" style="color:whitesmoke;">
+    <button id="predict-button">Find out who is in your picture </button>
+    <p style="font-weight:bold; color:whitesmoke;">Upload a .jpeg, .jpg or .png image of at least 10 kb</p>
+    <p style="font-weight:bold; color:whitesmoke;">Result</p>
+    <p> <span id="result" style="color:yellowgreen"></span></p>
+    <img id="selected-image" src=""/>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        let base64Image;
+        $("#image-selector").change(function() {
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                let dataURL = reader.result;
+                $("#selected-image").attr("src", dataURL);
+                base64Image = dataURL.replace("data:image/png;base64,","").replace("data:image/jpeg;base64,","").replace("data:image/jpg;base64,","");
+                
+            }
+            reader.readAsDataURL($("#image-selector")[0].files[0]);
+            $("#result").text("")
+        });
+        $("#predict-button").click(function(event){
+            let message = {
+                image: base64Image
+            }
+            console.log(message);
+            $.post("http://localhost:5001/predict", JSON.stringify(message), function(response){
+                $("#result").text(response.result);
+                console.log(response.result);
+            });
+        });
+    </script>
+</body>
+</html>
