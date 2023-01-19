@@ -37,8 +37,8 @@
             let message = {
                 image: base64Image
             }
-            console.log(message);
-            $.post("http://localhost:5001/predict", JSON.stringify(message), function(response){
+
+            $.post("https://pet-pet-app.onrender.com/predict", JSON.stringify(message), function(response){
                 $("#result").text(response.result);
                 console.log(response.result);
             });

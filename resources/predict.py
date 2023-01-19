@@ -15,8 +15,6 @@ model = load_model('final_model.h5')
 
 
 class Predict(Resource):
-    def get(self):
-        return jsonify({"result": "it's running"})
     def post(self):
         # image_from_request = request.files['image']
         message = request.get_json(force=True)
