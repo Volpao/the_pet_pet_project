@@ -38,7 +38,7 @@
                 image: base64Image
             }
 
-            $.post("http://localhost:5001/predict", JSON.stringify(message), function(response){
+            $.post("https://petpetproject-boztzllytq-oc.a.run.app/predict", JSON.stringify(message), function(response){
                 $("#result").text(response.result);
                 console.log(response.result);
             });
