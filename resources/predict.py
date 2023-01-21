@@ -53,3 +53,4 @@ class Predict(Resource):
             return 'OTHER BREED'
         else:
             return 'SHIBA INU'
+#https://pet-pet-app.onrender.com/predict

@@ -38,7 +38,7 @@
                 image: base64Image
             }
 
-            $.post("https://pet-pet-app.onrender.com/predict", JSON.stringify(message), function(response){
+            $.post("http://localhost:5001/predict", JSON.stringify(message), function(response){
                 $("#result").text(response.result);
                 console.log(response.result);
             });
